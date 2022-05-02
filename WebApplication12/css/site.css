@@ -6,3 +6,11 @@
 input[type=text].input-validation-error {
     border-bottom: 1px solid #f00;
 }
+
+
+.saa {
+    position: absolute;
+    left: 30px;
+    top: 20px;
+}
+

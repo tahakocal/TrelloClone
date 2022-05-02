@@ -40,7 +40,7 @@
         <div class="col s10">
             <a href="/DoIt/Create"
                class="wave-effect waves-light btn">
-                Add A Card
+                Ekle
             </a>
         </div>
     </div>
@@ -49,19 +49,21 @@
         @foreach (var column in Model)
         {
             <div class="col m4">
-                <div class="column" style="min-height: 600px" id="@column.Id">
+                <div class="column" style="min-height: 600px">
                     <h3 style="text-align:center">@column.Status.Name</h3>
-                    <div class="card blue-grey darken-1 draggable" id="@column.Id">
+                    <div class="card blue-grey darken-1 draggable" >
                         <div class="card-content">
                             <p>
                                 <a class="text-black">
                                     @column.Title
                                     <br/>
                                     <a class="white-text">
+                                        <div class="col-md-2 float-right">
+                                            <button type="button" class="btn btn-danger saa" style="margin-left: 175px">Delete</button>
+                                        </div>
                                         @column.Description
                                     </a>
                                 </a>
-                               
                             </p>
                         </div>
                     </div>
