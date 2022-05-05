@@ -225,6 +225,7 @@
     <Content Include="Views\Shared\_ToDoLayout.cshtml" />
     <Content Include="Views\DoIt\Index.cshtml" />
     <Content Include="Views\DoIt\Create.cshtml" />
+    <Content Include="Views\DoIt\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

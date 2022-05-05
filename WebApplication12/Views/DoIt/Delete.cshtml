@@ -1,0 +1,24 @@
+﻿@model  WebApplication12.Models.ToDo
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+E<div>
+
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Id)</dt>
+        <dd>@Html.DisplayFor(model => model.Id)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Title)</dt>
+        <dd>@Html.DisplayFor(model => model.Title)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+        <dd>@Html.DisplayFor(model => model.Description)</dd>
+    </dl>
+</div>
+@using (Html.BeginForm()) {
+      @Html.AntiForgeryToken()
+      <div class="form-actions no-color">
+          <input type="submit" value="Delete" class="btn btn-default" /> |
+          @Html.ActionLink("Back to List", "Index")
+      </div>
+  }

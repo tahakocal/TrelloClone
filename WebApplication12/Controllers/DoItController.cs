@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication12.Models;
@@ -28,11 +29,11 @@ namespace WebApplication12.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind
-            (Include = "Title,Description,StatusId")] ToDo toDo)
+        public ActionResult Create([Bind(Include = "Tiltle,Description")] ToDo toDo)
         {
             if (ModelState.IsValid)
             {
+                toDo.StatusId = 1;
                 db.ToDo.Add(toDo);
                 db.SaveChanges();
                 
@@ -41,6 +42,29 @@ namespace WebApplication12.Controllers
             }
             return null;
         }
+
+        //[HttpPost]
+        //public ActionResult Delete(int? id)
+        //{
+        //    ToDo toDo = db.ToDo.Find(id);
+        //    if (toDo == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+
+        //    return View(toDo);
+
+        //}
+
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(ToDo todo)
+        //{
+        //    var Id = todo.Id;
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+
+        //}
 
     }
 }
