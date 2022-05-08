@@ -12,15 +12,20 @@ namespace WebApplication12.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ToDo
+    public partial class User
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public int StatusId { get; set; }
-        public int UserId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.ToDo = new HashSet<ToDo>();
+        }
     
-        public virtual Status Status { get; set; }
-        public virtual User User { get; set; }
+        public int UserId { get; set; }
+        public string NameSurname { get; set; }
+        public string Mail { get; set; }
+        public string Pass { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ToDo> ToDo { get; set; }
     }
 }

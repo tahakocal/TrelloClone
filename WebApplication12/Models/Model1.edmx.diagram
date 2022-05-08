@@ -5,10 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="49e42d502ec74e36bb86a05611772dff" Name="Diagram1">
-        <EntityTypeShape EntityType="ToDoDatabaseModel.Status" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ToDoDatabaseModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ToDoDatabaseModel.ToDo" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="ToDoDatabaseModel.FK_ToDo_Status" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ToDoDatabaseModel.Status" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="ToDoDatabaseModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ToDoDatabaseModel.ToDo" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="ToDoDatabaseModel.User" Width="1.5" PointX="5.75" PointY="1.125" />
+        <AssociationConnector Association="ToDoDatabaseModel.FK_ToDo_Status" />
+        <AssociationConnector Association="ToDoDatabaseModel.FK_ToDo_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

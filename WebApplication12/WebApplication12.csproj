@@ -163,6 +163,9 @@
     <Compile Include="Models\ToDo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +229,8 @@
     <Content Include="Views\DoIt\Index.cshtml" />
     <Content Include="Views\DoIt\Create.cshtml" />
     <Content Include="Views\DoIt\Delete.cshtml" />
+    <Content Include="Views\DoIt\Update.cshtml" />
+    <Content Include="Views\DoIt\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

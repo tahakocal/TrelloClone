@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using WebApplication12.Models;
 
@@ -29,42 +25,62 @@ namespace WebApplication12.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Tiltle,Description")] ToDo toDo)
+        public ActionResult Create([Bind(Include = "Title,Description")] ToDo toDo)
         {
             if (ModelState.IsValid)
             {
+                
+                toDo.UserId = 1;
                 toDo.StatusId = 1;
                 db.ToDo.Add(toDo);
                 db.SaveChanges();
-                
+
                 return RedirectToAction("Index");
-                
+
             }
             return null;
         }
 
-        //[HttpPost]
-        //public ActionResult Delete(int? id)
-        //{
-        //    ToDo toDo = db.ToDo.Find(id);
-        //    if (toDo == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update([Bind(Include = "Id")] ToDo toDo)
+        {
+            db.ToDo.Add(toDo);
+            db.SaveChanges();
+            int id = toDo.Id;
 
-        //    return View(toDo);
+            return RedirectToAction("Index");
+        }
 
-        //}
+        [HttpPost]
+        public ActionResult Delete(int? id)
+        {
+            ToDo toDo = db.ToDo.Find(id);
+            if (toDo == null)
+            {
+                return HttpNotFound();
+            }
 
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(ToDo todo)
-        //{
-        //    var Id = todo.Id;
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
+            return View(toDo);
 
-        //}
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(ToDo todo)
+        {
+            var Id = todo.Id;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
+
+        public ActionResult Login()
+        {
+
+            return View();
+        }
 
     }
 }
