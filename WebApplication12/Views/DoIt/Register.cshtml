@@ -1,12 +1,12 @@
 ﻿@model WebApplication12.Models.User
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
     <div class="row">
-        <h2>Login</h2>
+        <h2>Register</h2>
 
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -17,14 +17,11 @@
             <label asp-for="Password"></label>
             <input asp-for="Password" />
 
-            <p>
-                <label asp-for="RememberMe">
-                    <input type="checkbox" asp-for="RememberMe" />
-                    <span>@Html.DisplayNameFor(m => m.NameSurname)</span>
-                </label>
-            </p>
+            <label asp-for="ConfirmPassword"></label>
+            <input asp-for="ConfirmPassword" />
 
-            <button class="btn" type="submit">Log in</button>
+            <button class="btn" type="submit">Register</button>
         </form>
     </div>
 </div>
+

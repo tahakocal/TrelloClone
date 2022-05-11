@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using WebApplication12.Models;
@@ -9,7 +11,6 @@ namespace WebApplication12.Controllers
     {
         private ToDoDatabaseEntities db = new ToDoDatabaseEntities();
 
-
         // GET: ToDo
         public ActionResult Index()
         {
@@ -17,6 +18,30 @@ namespace WebApplication12.Controllers
             return View(todoList);
         }
 
+        //[HttpPost]
+        //public ActionResult StatusChange(int taskId)
+        //{
+        //    var data = db.ToDo.SingleOrDefault(x =>x.Id==taskId);
+        //    if (data!=null)
+        //    {
+        //        switch (data.StatusId)
+        //        {
+        //            case 1:
+        //                data.StatusId = 2;
+        //                break;
+        //            case 2:
+        //                data.StatusId = 3;
+        //                break;
+        //            default:
+        //                data.StatusId = 1;
+        //                break;
+        //        }
+
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return null;
+        //}
         public ActionResult Create()
         {
 
@@ -29,14 +54,12 @@ namespace WebApplication12.Controllers
         {
             if (ModelState.IsValid)
             {
-                
                 toDo.UserId = 1;
                 toDo.StatusId = 1;
                 db.ToDo.Add(toDo);
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
-
             }
             return null;
         }
@@ -75,12 +98,27 @@ namespace WebApplication12.Controllers
 
         }
 
-
-        public ActionResult Login()
+        public ActionResult Edit(int id)
         {
+            return View(db.ToDo.Where(x => x.StatusId == id).FirstOrDefault());
 
-            return View();
+
         }
+        [HttpPost]
+        public ActionResult Edit(int id,ToDo toDo)
+        {
+            try
+            {
+                db.Entry(toDo).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
 
     }
 }
