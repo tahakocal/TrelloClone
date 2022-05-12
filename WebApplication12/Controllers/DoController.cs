@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -78,7 +79,7 @@ namespace WebApplication12.Controllers
         #region Delete
         public ActionResult Delete(int id)
         {
-
+            
             var data = db.ToDo.SingleOrDefault(x => x.Id == id);
             if (data != null)
             {
@@ -111,7 +112,7 @@ namespace WebApplication12.Controllers
             return View(data);
         }
 
-
+      
 
         [HttpPost]
         public ActionResult Edit(int id, ToDo toDo)
