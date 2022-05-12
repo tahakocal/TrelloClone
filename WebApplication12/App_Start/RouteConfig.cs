@@ -12,7 +12,7 @@ namespace WebApplication12
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "DoIt", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Do", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

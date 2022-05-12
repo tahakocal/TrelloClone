@@ -309,7 +309,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\DoItController.cs" />
+    <Compile Include="Controllers\DoController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -406,13 +407,18 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_ToDoLayout.cshtml" />
-    <Content Include="Views\DoIt\Index.cshtml" />
-    <Content Include="Views\DoIt\Create.cshtml" />
-    <Content Include="Views\DoIt\Delete.cshtml" />
-    <Content Include="Views\DoIt\Update.cshtml" />
-    <Content Include="Views\DoIt\Login.cshtml" />
-    <Content Include="Views\DoIt\Register.cshtml" />
-    <Content Include="Views\DoIt\Edit.cshtml" />
+    <Content Include="Views\Do\Index.cshtml" />
+    <Content Include="Views\Do\Create.cshtml" />
+    <Content Include="Views\Do\Delete.cshtml" />
+    <Content Include="Views\Do\Update.cshtml" />
+    <Content Include="Views\Do\Login.cshtml" />
+    <Content Include="Views\Do\Register.cshtml" />
+    <Content Include="Views\Do\Edit.cshtml" />
+    <Content Include="Views\Task\Create.cshtml" />
+    <Content Include="Views\Task\Delete.cshtml" />
+    <Content Include="Views\Task\Details.cshtml" />
+    <Content Include="Views\Task\Edit.cshtml" />
+    <Content Include="Views\Task\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
