@@ -87,6 +87,9 @@ namespace WebApplication12.Controllers
                     case 3:
                         data.IsActive = 1;
                         break;
+                    default:
+                        data.IsActive = 0;
+                        break;
                 }
 
                 db.SaveChanges();
