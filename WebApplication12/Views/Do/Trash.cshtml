@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WebApplication12.Models.ToDo>
+@{
+    ViewBag.Title = "Trash";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(function () {
+        $(".draggable").draggable({
+            revert: "invalid"
+        });
+
+        $('.column').droppable({
+            accept: '.draggable',
+            drop: function (event, ui) {
+                var dropped = ui.draggable;
+                var droppedOn = $(this);
+                $(dropped).detach().css({ top: 0, left: 0 }).appendTo(droppedOn);
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: "",
+                    beforeSend: function (request) {
+                        request.setRequestHeader("RequestVerificationToken", $('#RequestVerificationToken').val());
+                    },
+                    data: JSON.stringify({ cardId: dropped[0].id, columnId: droppedOn[0].id }),
+                });
+            }
+        });
+    });
+</script>
+
+<div class="container">
+    <h3 style="text-align:center">Çöp Kutusu</h3>
+    <div class="row">
+        <div class="col m4">
+            <div class="column" style="min-height: 600px">
+
+                @foreach (var column in Model.Where(x => x.IsActive == 1))
+                {
+                    <div class="card blue-grey darken-1 draggable ">
+                        <div class="card-content">
+                            <p>
+                                <a class="text-black">
+                                    @column.Title
+                                    <br />
+                                    <a class="white-text">
+                                        @column.Description
+                                    </a>
+                                    <div class="col-md-2 float-right">
+                                        <a href="/Do/StatusChange/@column.Id" type="sumbit" class="btn saa" style="margin-left: 175px">
+                                            Sil
+                                        </a>
+                                    </div>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+</div>

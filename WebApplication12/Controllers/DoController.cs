@@ -21,6 +21,12 @@ namespace WebApplication12.Controllers
 
         #endregion
 
+        public ActionResult Trash()
+        {
+            List<ToDo> todoList = db.ToDo.ToList();
+            return View(todoList);
+        }
+
         #region Create
         public ActionResult Create()
         {
