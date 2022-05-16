@@ -11,22 +11,15 @@ namespace WebApplication12.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class User
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class LoginViewModel
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.ToDo = new HashSet<ToDo>();
-        }
-    
-        public int UserId { get; set; }
-        public string FirstName { get; set; }
+        [Required]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail id is not valid")]
         public string Mail { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
-        public string LastName { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ToDo> ToDo { get; set; }
     }
 }
