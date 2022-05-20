@@ -52,6 +52,7 @@ warning 6002: The table/view 'ToDoDatabase.dbo.LoginViewModel' does not have a p
           <Property Name="Mail" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
           <Property Name="LastName" Type="varchar" MaxLength="100" />
+          <Property Name="SessionId" Type="int" />
         </EntityType>
         <Association Name="FK_ToDo_Status">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
@@ -229,6 +230,7 @@ warning 6002: The table/view 'ToDoDatabase.dbo.LoginViewModel' does not have a p
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ToDo" Relationship="ToDoDatabaseModel.FK_ToDo_User" FromRole="User" ToRole="ToDo" />
+          <Property Name="SessionId" Type="Int32" />
         </EntityType>
         <Association Name="FK_ToDo_Status">
           <End Type="ToDoDatabaseModel.Status" Role="Status" Multiplicity="1" />
@@ -326,6 +328,7 @@ warning 6002: The table/view 'ToDoDatabase.dbo.LoginViewModel' does not have a p
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="ToDoDatabaseModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Mail" ColumnName="Mail" />

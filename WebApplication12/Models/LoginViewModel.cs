@@ -11,15 +11,10 @@ namespace WebApplication12.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class LoginViewModel
     {
-        [Required]
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail id is not valid")]
         public string Mail { get; set; }
-        [Required]
-        [DataType(DataType.Password)]
         public string Password { get; set; }
     }
 }

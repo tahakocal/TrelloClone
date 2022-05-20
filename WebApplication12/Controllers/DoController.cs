@@ -15,17 +15,12 @@ namespace WebApplication12.Controllers
         // GET: ToDo
         public ActionResult Index()
         {
-            List<ToDo> todoList = db.ToDo.ToList();
+            var userLogin = Session["LoginUser"] as User;
+            List<ToDo> todoList = db.ToDo.Where(x=>x.User.UserId==userLogin.UserId).ToList();
             return View(todoList);
         }
 
         #endregion
-
-        public ActionResult Trash()
-        {
-            List<ToDo> todoList = db.ToDo.ToList();
-            return View(todoList);
-        }
 
         #region Create
         public ActionResult Create()
@@ -38,10 +33,11 @@ namespace WebApplication12.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Title,Description")] ToDo toDo)
         {
+            var userLogin = Session["LoginUser"] as User;
             if (ModelState.IsValid)
             {
+                toDo.UserId = userLogin.UserId;
                 toDo.IsActive = 0;
-                toDo.UserId = 1;
                 toDo.StatusId = 1;
                 db.ToDo.Add(toDo);
                 db.SaveChanges();
@@ -107,6 +103,16 @@ namespace WebApplication12.Controllers
 
         #endregion
 
+        #region Trash
+
+        public ActionResult Trash()
+        {
+            List<ToDo> todoList = db.ToDo.ToList();
+            return View(todoList);
+        }
+
+        #endregion
+
         #region Edit
         public ActionResult Edit(int id)
         {
@@ -138,9 +144,5 @@ namespace WebApplication12.Controllers
         }
 
         #endregion
-
-
-
-
     }
 }

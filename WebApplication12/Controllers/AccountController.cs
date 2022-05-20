@@ -42,12 +42,11 @@ namespace WebApplication12.Controllers
                     databaseContext.SaveChanges();
                 }
 
-                ViewBag.Message = "User Details Saved";
+                ViewBag.Message = "Kayıt Olundu";
                 return View("Register");
             }
             else
             {
-
 
                 return View("Register", registerDetails);
             }
@@ -64,24 +63,27 @@ namespace WebApplication12.Controllers
 
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login(LoginViewModel model,User user)
         {
 
             if (ModelState.IsValid)
             {
-
-                var isValidUser = IsValidUser(model);
-
-
-                if (isValidUser != null)
+                using (var databaseContext = new ToDoDatabaseEntities())
                 {
-                    FormsAuthentication.SetAuthCookie(model.Mail, false);
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError("Failure", "Wrong Username and password combination !");
-                    return View();
+                    var isValidUser = IsValidUser(model);
+
+
+                    if (isValidUser != null)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.Mail, false);
+                        Session["LoginUser"] = user;
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Hata", "Yanlış Mail Veya Şifre !");
+                        return View();
+                    }
                 }
             }
             else
@@ -100,16 +102,16 @@ namespace WebApplication12.Controllers
                 if (user == null)
                 {
                     return null;
-                }else
+                }
+                else
                 {
                     return user;
                 }
-
             }
         }
 
         #endregion
 
-
+        
     }
 }

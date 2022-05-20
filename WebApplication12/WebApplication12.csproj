@@ -421,8 +421,6 @@
     <Content Include="Views\Do\Create.cshtml" />
     <Content Include="Views\Do\Delete.cshtml" />
     <Content Include="Views\Do\Update.cshtml" />
-    <Content Include="Views\Do\Login.cshtml" />
-    <Content Include="Views\Do\Register.cshtml" />
     <Content Include="Views\Do\Edit.cshtml" />
     <Content Include="Views\Do\Trash.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
