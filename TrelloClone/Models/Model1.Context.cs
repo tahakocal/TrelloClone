@@ -28,10 +28,10 @@ namespace WebApplication12.Models
         }
     
         public virtual DbSet<Status> Status { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<ToDo> ToDo { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<LoginViewModel> LoginViewModel { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

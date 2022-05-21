@@ -42,7 +42,7 @@ namespace WebApplication12.Controllers
                     databaseContext.SaveChanges();
                 }
 
-                ViewBag.Message = "Kayıt Olundu";
+                ViewBag.Message = "Kayıt Olundu, Sağ Yukarıdan Giriş Yapabilirsin";
                 return View("Register");
             }
             else
@@ -112,6 +112,16 @@ namespace WebApplication12.Controllers
 
         #endregion
 
-        
+        #region Logout
+
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon(); // it will clear the session at the end of request
+            return RedirectToAction("Login", "Account");
+        }
+
+        #endregion
+
     }
 }
