@@ -107,7 +107,8 @@ namespace WebApplication12.Controllers
 
         public ActionResult Trash()
         {
-            List<ToDo> todoList = db.ToDo.ToList();
+            var userLogin = Session["LoginUser"] as User;
+            List<ToDo> todoList = db.ToDo.Where(x => x.User.UserId == userLogin.UserId).ToList();
             return View(todoList);
         }
 
