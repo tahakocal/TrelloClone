@@ -16,7 +16,7 @@ namespace WebApplication12.Controllers
         public ActionResult Index()
         {
             var userLogin = Session["LoginUser"] as User;
-            List<ToDo> todoList = db.ToDo.Where(x=>x.User.UserId==userLogin.UserId).ToList();
+            List<ToDo> todoList = db.ToDo.Where(x => x.User.UserId == userLogin.UserId).ToList();
             return View(todoList);
         }
 

@@ -1,53 +1,15 @@
-﻿@using System.Web.UI.WebControls
-@model IEnumerable<WebApplication12.Models.ToDo>
+﻿@model IEnumerable<WebApplication12.Models.ToDo>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script>
-    $(function () {
-        $(".draggable").draggable({
-            revert: "invalid"
-        });
-
-        $('.column').droppable({
-            accept: '.draggable',
-            drop: function (event, ui) {
-                var dropped = ui.draggable;
-                var droppedOn = $(this);
-                $(dropped).detach().css({ top: 0, left: 0 }).appendTo(droppedOn);
-
-                $.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    contentType: "application/json",
-                    url: "",
-                    beforeSend: function (request) {
-                        request.setRequestHeader("RequestVerificationToken", $('#RequestVerificationToken').val());
-                    },
-                    data: JSON.stringify({ cardId: dropped[0].id, columnId: droppedOn[0].id }),
-                });
-            }
-        });
-    });
-</script>
-
 <div class="container">
     <div class="row">
-        <div class="col s10">
-            <div class="btn btn-success">
-                @Html.ActionLink("Ekle", "Create", "Do")
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col s10">
-            <div class="btn btn-danger">
-                @Html.ActionLink("Çöp Kutusuu", "Trash", "Do")
-            </div>
+        <div class="col-md-12 ">
+            <a href="/Do/Create"><button type="button" class="btn btn-success">Ekle</button></a>
+            <a href="/Do/Trash"><button type="button" class="btn right btn-danger">Çöp Kutusu</button></a>
         </div>
     </div>
 
@@ -62,7 +24,7 @@
                         <div class="caption">
                             <h3>@column.Title</h3>
                             <p>@column.Description</p>
-                            <p><a href="/Do/StatusChange/@column.Id" class="btn btn-primary" role="button">Sonraki</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                            <p><a href="/Do/StatusChange/@column.Id" class="btn btn-primary" role="button">Sonraki</a> <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a></p>
                         </div>
                     </div>
                 }
@@ -78,7 +40,7 @@
                         <div class="caption">
                             <h3>@column.Title</h3>
                             <p>@column.Description</p>
-                            <p><a href="/Do/StatusChange/@column.Id" class="btn btn-primary" role="button">Sonraki</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                            <p><a href="/Do/StatusChange/@column.Id" class="btn btn-primary" role="button">Sonraki</a> <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a></p>
                         </div>
                     </div>
                 }
@@ -94,7 +56,7 @@
                         <div class="caption">
                             <h3>@column.Title</h3>
                             <p>@column.Description</p>
-                            <p><a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Sil</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                            <p><a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Sil</a> <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a></p>
                         </div>
                     </div>
                 }
