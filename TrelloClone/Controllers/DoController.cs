@@ -16,8 +16,13 @@ namespace WebApplication12.Controllers
         public ActionResult Index()
         {
             var userLogin = Session["LoginUser"] as User;
-            List<ToDo> todoList = db.ToDo.Where(x => x.User.UserId == userLogin.UserId).ToList();
-            return View(todoList);
+            if (userLogin!=null)
+            {
+                List<ToDo> todoList = db.ToDo.Where(x => x.User.UserId == userLogin.UserId).ToList();
+                return View(todoList);
+            }
+
+            return RedirectToAction("Login", "Account");
         }
 
         #endregion
@@ -126,8 +131,6 @@ namespace WebApplication12.Controllers
             ViewBag.UserId = new SelectList(db.User, "UserId", "NameSurname", data.UserId);
             return View(data);
         }
-
-
 
         [HttpPost]
         public ActionResult Edit(int id, ToDo toDo)

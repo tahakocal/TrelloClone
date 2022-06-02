@@ -13,16 +13,16 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(todo => todo.Title, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <h5 class="control-label col-md-2">Başlık</h5>
+            <div class="col-md-5">
                 @Html.EditorFor(todo => todo.Title)
                 @Html.ValidationMessageFor(todo => todo.Title)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(todo => todo.Description, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <h5 class="control-label col-md-2">Açıklama</h5>
+            <div class="col-md-5">
                 @Html.EditorFor(todo => todo.Description)
                 @Html.ValidationMessageFor(todo => todo.Description)
             </div>
@@ -30,12 +30,9 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Kaydet" class="btn btn-info" id="btnsave" />
+                <input type="submit" value="Kaydet" class="btn btn-success" id="btnsave" />
             </div>
         </div>
-
-
-
     </div>
 
     <script>
@@ -46,7 +43,7 @@
                 type: "success"
             }),
             function() {
-                window.location.href = 'login.html';
+                window.location.href = '/Do/Index';
             }
         });
     </script>
