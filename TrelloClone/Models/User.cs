@@ -22,10 +22,9 @@ namespace WebApplication12.Models
     
         public int UserId { get; set; }
         public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Mail { get; set; }
         public string Password { get; set; }
-        public string LastName { get; set; }
-        public int SessionId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ToDo> ToDo { get; set; }

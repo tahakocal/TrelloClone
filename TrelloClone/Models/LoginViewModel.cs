@@ -14,6 +14,7 @@ namespace WebApplication12.Models
     
     public partial class LoginViewModel
     {
+        public int LoginViewModelId { get; set; }
         public string Mail { get; set; }
         public string Password { get; set; }
     }

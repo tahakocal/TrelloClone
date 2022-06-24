@@ -15,11 +15,11 @@ namespace WebApplication12.Models
     public partial class ToDo
     {
         public int Id { get; set; }
-        public string Title { get; set; }
         public string Description { get; set; }
         public int StatusId { get; set; }
         public int UserId { get; set; }
         public int IsActive { get; set; }
+        public string Title { get; set; }
     
         public virtual Status Status { get; set; }
         public virtual User User { get; set; }
