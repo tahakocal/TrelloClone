@@ -17,7 +17,7 @@
           <Key>
             <PropertyRef Name="StatusId" />
           </Key>
-          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -34,18 +34,18 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsActive" Type="int" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="IsActive" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Mail" Type="varchar" MaxLength="500" Nullable="false" />
@@ -125,10 +125,11 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="LoginViewModel" EntityType="ToDoDatabaseModel.LoginViewModel" />
           <EntitySet Name="Status" EntityType="ToDoDatabaseModel.Status" />
+          <EntitySet Name="sysdiagrams" EntityType="ToDoDatabaseModel.sysdiagrams" />
           <EntitySet Name="ToDo" EntityType="ToDoDatabaseModel.ToDo" />
           <EntitySet Name="User" EntityType="ToDoDatabaseModel.User" />
-          <EntitySet Name="sysdiagrams" EntityType="ToDoDatabaseModel.sysdiagrams" />
           <AssociationSet Name="FK_ToDo_Status" Association="ToDoDatabaseModel.FK_ToDo_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="ToDo" EntitySet="ToDo" />
@@ -137,8 +138,7 @@
             <End Role="User" EntitySet="User" />
             <End Role="ToDo" EntitySet="ToDo" />
           </AssociationSet>
-          <EntitySet Name="LoginViewModelSet" EntityType="ToDoDatabaseModel.LoginViewModel" />
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -150,37 +150,21 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="LoginViewModel">
+          <Key>
+            <PropertyRef Name="LoginViewModelId" />
+          </Key>
+          <Property Name="LoginViewModelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mail" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Status">
           <Key>
             <PropertyRef Name="StatusId" />
           </Key>
-          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ToDo" Relationship="ToDoDatabaseModel.FK_ToDo_Status" FromRole="Status" ToRole="ToDo" />
-        </EntityType>
-        <EntityType Name="ToDo">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="IsActive" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Status" Relationship="ToDoDatabaseModel.FK_ToDo_Status" FromRole="ToDo" ToRole="Status" />
-          <NavigationProperty Name="User" Relationship="ToDoDatabaseModel.FK_ToDo_User" FromRole="ToDo" ToRole="User" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Mail" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ToDo" Relationship="ToDoDatabaseModel.FK_ToDo_User" FromRole="User" ToRole="ToDo" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -191,6 +175,30 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ToDo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="ToDoDatabaseModel.FK_ToDo_Status" FromRole="ToDo" ToRole="Status" />
+          <NavigationProperty Name="User" Relationship="ToDoDatabaseModel.FK_ToDo_User" FromRole="ToDo" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Mail" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ToDo" Relationship="ToDoDatabaseModel.FK_ToDo_User" FromRole="User" ToRole="ToDo" />
         </EntityType>
         <Association Name="FK_ToDo_Status">
           <End Type="ToDoDatabaseModel.Status" Role="Status" Multiplicity="1" />
@@ -216,48 +224,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="LoginViewModel">
-          <Key>
-            <PropertyRef Name="LoginViewModelId" />
-          </Key>
-          <Property Name="LoginViewModelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Mail" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-        </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ToDoDatabaseModelStoreContainer" CdmEntityContainer="ToDoDatabaseEntities">
+          <EntitySetMapping Name="LoginViewModel">
+            <EntityTypeMapping TypeName="ToDoDatabaseModel.LoginViewModel">
+              <MappingFragment StoreEntitySet="LoginViewModel">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="LoginViewModelId" ColumnName="LoginViewModelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Status">
             <EntityTypeMapping TypeName="ToDoDatabaseModel.Status">
               <MappingFragment StoreEntitySet="Status">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ToDo">
-            <EntityTypeMapping TypeName="ToDoDatabaseModel.ToDo">
-              <MappingFragment StoreEntitySet="ToDo">
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="ToDoDatabaseModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Mail" ColumnName="Mail" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -272,12 +258,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LoginViewModelSet">
-            <EntityTypeMapping TypeName="ToDoDatabaseModel.LoginViewModel">
-              <MappingFragment StoreEntitySet="LoginViewModel">
+          <EntitySetMapping Name="ToDo">
+            <EntityTypeMapping TypeName="ToDoDatabaseModel.ToDo">
+              <MappingFragment StoreEntitySet="ToDo">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="ToDoDatabaseModel.User">
+              <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Mail" ColumnName="Mail" />
-                <ScalarProperty Name="LoginViewModelId" ColumnName="LoginViewModelId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -295,8 +295,8 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
