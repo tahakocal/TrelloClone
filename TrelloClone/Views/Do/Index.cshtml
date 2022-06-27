@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplication12.Models.ToDo>
+﻿@model  List<WebApplication12.Models.ToDo>
 
 @{
     ViewBag.Title = "Index";
@@ -17,14 +17,17 @@
         <div class="col m4">
             <div class="column" style="min-height: 600px">
                 <h3 style="text-align:center">Yapılacaklar</h3>
-                @foreach (var column in Model.Where(x => x.StatusId == 1 && x.IsActive == 0))
+                @foreach (var column in Model.Where(x => x.Statusid == 1 && x.IsActive == 0))
                 {
 
                     <div class="thumbnail">
                         <div class="caption">
                             <h3>@column.Title</h3>
                             <p>@column.Description</p>
-                            <p><a href="/Do/StatusChange/@column.Id" class="btn btn-primary" role="button">Sonraki</a> <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a></p>
+                            <p>
+                                <a href="/Do/StatusChange/@column.Id" class="btn btn-primary" role="button">Sonraki</a>
+                                <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a>
+                            </p>
                         </div>
                     </div>
                 }
@@ -34,7 +37,7 @@
         <div class="col m4">
             <div class="column" style="min-height: 600px">
                 <h3 style="text-align:center">Yapılanlar</h3>
-                @foreach (var column in Model.Where(x => x.StatusId == 2 && x.IsActive == 0))
+                @foreach (var column in Model.Where(x => x.Statusid == 2 && x.IsActive == 0))
                 {
                     <div class="thumbnail">
                         <div class="caption">
@@ -50,7 +53,7 @@
         <div class="col m4">
             <div class="column" style="min-height: 600px">
                 <h3 style="text-align:center">Tamamlandı</h3>
-                @foreach (var column in Model.Where(x => x.StatusId == 3 && x.IsActive == 0))
+                @foreach (var column in Model.Where(x => x.Statusid == 3 && x.IsActive == 0))
                 {
                     <div class="thumbnail">
                         <div class="caption">

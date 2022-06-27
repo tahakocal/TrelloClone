@@ -59,52 +59,26 @@ namespace WebApplication12.Controllers
 
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model, User user)
+        public ActionResult Login(User user)
         {
 
             if (ModelState.IsValid)
             {
                 using (var databaseContext = new ToDoDatabaseEntities())
                 {
-                    var isValidUser = IsValidUser(model);
-
-
-                    if (isValidUser != null)
-                    {
-                        FormsAuthentication.SetAuthCookie(model.Mail, false);
-                        Session["LoginUser"] = user;
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Hata", "Yanlış Mail Veya Şifre !");
-                        return View();
-                    }
+                    Session["LoginUser"] = user;
+                    return RedirectToAction("Index");
                 }
             }
             else
             {
-                return View(model);
+                ModelState.AddModelError("Hata", "Yanlış Mail Veya Şifre !");
+                return View();
             }
         }
 
 
-        public User IsValidUser(LoginViewModel model)
-        {
-            using (var dataContext = new ToDoDatabaseEntities())
-            {
-
-                User user = dataContext.User.Where(query => query.Mail.Equals(model.Mail) && query.Password.Equals(model.Password)).SingleOrDefault();
-                if (user == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    return user;
-                }
-            }
-        }
+      
 
         #endregion
 

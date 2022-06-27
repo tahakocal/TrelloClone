@@ -8,20 +8,19 @@ namespace WebApplication12.Controllers
 {
     public class DoController : Controller
     {
-        private ToDoDatabaseEntities db = new ToDoDatabaseEntities();
+        private ToDoDatabaseEntities _db = new ToDoDatabaseEntities();
 
         #region Index
 
         // GET: ToDo
         public ActionResult Index()
         {
-            var userLogin = Session["LoginUser"] as User;
-            if (userLogin!=null)
+            if (Session["LoginUser"] is User userLogin)
             {
-                List<ToDo> todoList = db.ToDo.Where(x => x.User.UserId == userLogin.UserId).ToList();
+                List<ToDo> todoList = _db.ToDo.Where(x => x.User.Userid == userLogin.Userid).ToList();
                 return View(todoList);
-            }
 
+            }
 
             return RedirectToAction("Login", "Account");
         }
@@ -31,7 +30,6 @@ namespace WebApplication12.Controllers
         #region Create
         public ActionResult Create()
         {
-
             return View();
         }
 
@@ -40,17 +38,18 @@ namespace WebApplication12.Controllers
         public ActionResult Create([Bind(Include = "Title,Description")] ToDo toDo)
         {
             var userLogin = Session["LoginUser"] as User;
+
             if (ModelState.IsValid)
             {
-                toDo.UserId = userLogin.UserId;
+                toDo.Userid = userLogin.Userid;
                 toDo.IsActive = 0;
-                toDo.StatusId = 1;
-                db.ToDo.Add(toDo);
-                db.SaveChanges();
+                toDo.Statusid = 1;
+                _db.ToDo.Add(toDo);
+                _db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-            return null;
+            return Json("hata", JsonRequestBehavior.AllowGet);
         }
 
         #endregion
@@ -59,23 +58,23 @@ namespace WebApplication12.Controllers
 
         public ActionResult StatusChange(int id)
         {
-            var data = db.ToDo.SingleOrDefault(x => x.Id == id);
+            var data = _db.ToDo.SingleOrDefault(x => x.Id == id);
             if (data != null)
             {
-                switch (data.StatusId)
+                switch (data.Statusid)
                 {
                     case 1:
-                        data.StatusId = 2;
+                        data.Statusid = 2;
                         break;
                     case 2:
-                        data.StatusId = 3;
+                        data.Statusid = 3;
                         break;
                     default:
-                        data.StatusId = 1;
+                        data.Statusid = 1;
                         break;
                 }
 
-                db.SaveChanges();
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return Json("hata", JsonRequestBehavior.AllowGet);
@@ -87,10 +86,10 @@ namespace WebApplication12.Controllers
         public ActionResult Delete(int id)
         {
 
-            var data = db.ToDo.SingleOrDefault(x => x.Id == id);
+            var data = _db.ToDo.SingleOrDefault(x => x.Id == id);
             if (data != null)
             {
-                switch (data.StatusId)
+                switch (data.Statusid)
                 {
                     case 3:
                         data.IsActive = 1;
@@ -100,7 +99,7 @@ namespace WebApplication12.Controllers
                         break;
                 }
 
-                db.SaveChanges();
+                _db.SaveChanges();
                 return RedirectToAction("Index");
 
             }
@@ -114,7 +113,7 @@ namespace WebApplication12.Controllers
         public ActionResult Trash()
         {
             var userLogin = Session["LoginUser"] as User;
-            List<ToDo> todoList = db.ToDo.Where(x => x.User.UserId == userLogin.UserId).ToList();
+            List<ToDo> todoList = _db.ToDo.Where(x => x.User.Userid == userLogin.Userid).ToList();
             return View(todoList);
         }
 
@@ -123,23 +122,23 @@ namespace WebApplication12.Controllers
         #region Edit
         public ActionResult Edit(int id)
         {
-            var data = db.ToDo.SingleOrDefault(x => x.Id == id);
+            var data = _db.ToDo.SingleOrDefault(x => x.Id == id);
             if (data == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.StatusId = new SelectList(db.Status, "StatusId", "Name", data.StatusId);
-            ViewBag.UserId = new SelectList(db.User, "UserId", "NameSurname", data.UserId);
+            ViewBag.Statusid = new SelectList(_db.Status, "Statusid", "Name", data.Statusid);
+            ViewBag.Userid = new SelectList(_db.User, "Userid", "NameSurname", data.Userid);
             return View(data);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, ToDo toDo)
+        public ActionResult Edit(ToDo toDo)
         {
             try
             {
-                db.Entry(toDo).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(toDo).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

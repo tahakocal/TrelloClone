@@ -20,7 +20,7 @@ namespace WebApplication12.Models
             this.ToDo = new HashSet<ToDo>();
         }
     
-        public int UserId { get; set; }
+        public int Userid { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Mail { get; set; }
