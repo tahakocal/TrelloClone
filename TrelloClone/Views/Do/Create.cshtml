@@ -5,7 +5,7 @@
 }
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create","Do",FormMethod.Post, new {enctype="multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -25,6 +25,13 @@
             <div class="col-md-5">
                 @Html.EditorFor(todo => todo.Description)
                 @Html.ValidationMessageFor(todo => todo.Description)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <h5 class="control-label col-md-2">Resim</h5>
+            <div class="col-md-5">
+               <input type="file" name="Resim"/>
             </div>
         </div>
 

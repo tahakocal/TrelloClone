@@ -20,16 +20,37 @@
                 @foreach (var column in Model.Where(x => x.Statusid == 1 && x.IsActive == 0))
                 {
 
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h3>@column.Title</h3>
-                            <p>@column.Description</p>
-                            <p>
-                                <a href="/Do/StatusChange/@column.Id" class="btn btn-primary" role="button">Sonraki</a>
-                                <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a>
-                            </p>
+                    if (column.Image != null)
+                    {
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <img src="@column.Image" alt="" />
+                                <h3>@column.Title</h3>
+                                <p>@column.Description</p>
+                                <p>
+                                    <a href="/Do/StatusChange/@column.Id" class="btn btn-primary" role="button">Sonraki</a>
+                                    <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a>
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <img src="~/images/Adsız.png" alt="" />
+                                <h3>@column.Title</h3>
+                                <p>@column.Description</p>
+                                <p>
+                                    <a href="/Do/StatusChange/@column.Id" class="btn btn-primary" role="button">Sonraki</a>
+                                    <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a>
+                                </p>
+                            </div>
+                        </div>
+                    }
+
+
+
                 }
 
             </div>
@@ -39,13 +60,35 @@
                 <h3 style="text-align:center">Yapılanlar</h3>
                 @foreach (var column in Model.Where(x => x.Statusid == 2 && x.IsActive == 0))
                 {
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h3>@column.Title</h3>
-                            <p>@column.Description</p>
-                            <p><a href="/Do/StatusChange/@column.Id" class="btn btn-primary" role="button">Sonraki</a> <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a></p>
+                    if (column.Image != null)
+                    {
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <img src="@column.Image" alt="" />
+                                <h3>@column.Title</h3>
+                                <p>@column.Description</p>
+                                <p>
+                                    <a href="/Do/StatusChange/@column.Id" class="btn btn-primary" role="button">Sonraki</a>
+                                    <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a>
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <img src="~/images/Adsız.png" alt="" />
+                                <h3>@column.Title</h3>
+                                <p>@column.Description</p>
+                                <p>
+                                    <a href="/Do/StatusChange/@column.Id" class="btn btn-primary" role="button">Sonraki</a>
+                                    <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a>
+                                </p>
+                            </div>
+                        </div>
+                    }
+
                 }
 
             </div>
@@ -54,19 +97,33 @@
             <div class="column" style="min-height: 600px">
                 <h3 style="text-align:center">Tamamlandı</h3>
                 @foreach (var column in Model.Where(x => x.Statusid == 3 && x.IsActive == 0))
+                
                 {
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h3>@column.Title</h3>
-                            <p>@column.Description</p>
-                            <p><a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Sil</a> <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a></p>
+                    if (column.Image != null)
+                    {
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <img src="@column.Image" alt=""/>
+                                <h3>@column.Title</h3>
+                                <p>@column.Description</p>
+                                <p><a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Sil</a> <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a></p>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <img src="~/images/Adsız.png" alt="" />
+                                <h3>@column.Title</h3>
+                                <p>@column.Description</p>
+                                <p><a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Sil</a> <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a></p>
+                            </div>
+                        </div>
+                    }
                 }
             </div>
         </div>
     </div>
 </div>
 
-
-@*<img src="~/assets/Adsız.png" alt="" />*@

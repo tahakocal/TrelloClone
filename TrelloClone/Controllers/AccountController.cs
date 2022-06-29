@@ -7,6 +7,7 @@ namespace WebApplication12.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly ToDoDatabaseEntities db = new ToDoDatabaseEntities();
         public ActionResult Index()
         {
             return RedirectToAction("Index", "Do");
@@ -64,11 +65,14 @@ namespace WebApplication12.Controllers
 
             if (ModelState.IsValid)
             {
-                using (var databaseContext = new ToDoDatabaseEntities())
+                var checkUser = db.User.SingleOrDefault(x => x.Mail == user.Mail && x.Password == user.Password);
+                if (checkUser != null)
                 {
-                    Session["LoginUser"] = user;
+                    Session["LoginUser"] = checkUser;
                     return RedirectToAction("Index");
                 }
+
+                return View(user);
             }
             else
             {
@@ -78,7 +82,7 @@ namespace WebApplication12.Controllers
         }
 
 
-      
+
 
         #endregion
 

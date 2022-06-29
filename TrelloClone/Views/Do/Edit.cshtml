@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Do", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -14,6 +14,10 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
+        
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Image)
 
         <div class="form-group">
             <h5 class="control-label col-md-2">Başlık</h5>
@@ -43,7 +47,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-8">
                 <input type="submit" value="Kaydet" class="btn btn-success" />
-                <a href="/Do/Index"><button type="button" class="btn btn-danger">Anasayfaya Geri Dön</button></a>
+                <a href="/Do/Index"><button type="button" class="btn btn-danger">Geri Dön</button></a>
             </div>
         </div>
     </div>

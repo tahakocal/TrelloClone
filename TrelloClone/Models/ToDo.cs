@@ -20,6 +20,7 @@ namespace WebApplication12.Models
         public int IsActive { get; set; }
         public int Userid { get; set; }
         public int Statusid { get; set; }
+        public string Image { get; set; }
     
         public virtual Status Status { get; set; }
         public virtual User User { get; set; }

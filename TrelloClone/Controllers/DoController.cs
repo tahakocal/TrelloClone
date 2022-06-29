@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using WebApplication12.Models;
@@ -44,12 +45,22 @@ namespace WebApplication12.Controllers
                 toDo.Userid = userLogin.Userid;
                 toDo.IsActive = 0;
                 toDo.Statusid = 1;
+                if (Request.Files.Count > 0)
+                {
+                    string fileName = Path.GetFileName(Request.Files[0].FileName);
+                    string ext = Path.GetExtension(Request.Files[0].FileName);
+                    string path = "~/images/" + fileName + ext;
+                    Request.Files[0].SaveAs(Server.MapPath(path));
+                    toDo.Image = "/images/" + fileName + ext;
+                }
+
+
                 _db.ToDo.Add(toDo);
                 _db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-            return Json("hata", JsonRequestBehavior.AllowGet);
+            return RedirectToAction("Login", "Account");
         }
 
         #endregion
@@ -127,7 +138,7 @@ namespace WebApplication12.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Statusid = new SelectList(_db.Status, "Statusid", "Name", data.Statusid);
+            ViewBag.StatusId = new SelectList(_db.Status, "Statusid", "Name", data.Statusid);
             ViewBag.Userid = new SelectList(_db.User, "Userid", "NameSurname", data.Userid);
             return View(data);
         }
@@ -135,16 +146,13 @@ namespace WebApplication12.Controllers
         [HttpPost]
         public ActionResult Edit(ToDo toDo)
         {
-            try
-            {
-                _db.Entry(toDo).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.StatusId = new SelectList(_db.Status, "Statusid", "Name", toDo.Statusid);
+            ViewBag.Userid = new SelectList(_db.User, "Userid", "NameSurname", toDo.Userid);
+            var loginuser = Session["LoginUser"] as User;
+            toDo.Userid = loginuser.Userid;
+            _db.Entry(toDo).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         #endregion

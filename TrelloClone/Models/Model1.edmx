@@ -32,6 +32,7 @@
           <Property Name="IsActive" Type="int" Nullable="false" />
           <Property Name="Userid" Type="int" Nullable="false" />
           <Property Name="Statusid" Type="int" Nullable="false" />
+          <Property Name="Image" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -209,6 +210,7 @@
           <Property Name="Statusid" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Status" Relationship="ToDoDatabaseModel.ToDo_Status" FromRole="ToDo" ToRole="Status" />
           <NavigationProperty Name="User" Relationship="ToDoDatabaseModel.ToDo_User" FromRole="ToDo" ToRole="User" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -292,6 +294,7 @@
           <EntitySetMapping Name="ToDo">
             <EntityTypeMapping TypeName="ToDoDatabaseModel.ToDo">
               <MappingFragment StoreEntitySet="ToDo">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Statusid" ColumnName="Statusid" />
                 <ScalarProperty Name="Userid" ColumnName="Userid" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
