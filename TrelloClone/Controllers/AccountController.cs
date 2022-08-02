@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using WebApplication12.Models;
@@ -12,6 +13,52 @@ namespace WebApplication12.Controllers
         {
             return RedirectToAction("Index", "Do");
         }
+
+        #region MyAccount
+
+        public ActionResult MyAccount()
+        {
+            string username = User.Identity.Name;
+
+            // Fetch the userprofile
+            ToDo user = db.ToDo.FirstOrDefault(u => u.Userid.Equals(username));
+
+            // Construct the viewmodel
+            ToDo model = new ToDo();
+            model.User.FirstName = user.User.FirstName;
+            model.User.LastName = user.User.LastName;
+            model.User.Mail = user.User.Mail;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult MyAccount(ToDo toDo)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string username = toDo.User.Identity.Name;
+                // Get the userprofile
+                ToDo user = db.ToDo.FirstOrDefault(u => u.UserName.Equals(username));
+
+                // Update fields
+                user.FirstName = userprofile.FirstName;
+                user.LastName = userprofile.LastName;
+                user.Email = userprofile.Email;
+
+                db.Entry(user).State = EntityState.Modified;
+
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Home"); // or whatever
+            }
+
+            return View(userprofile);
+
+        }
+
+        #endregion
 
         #region Register
 
@@ -28,12 +75,13 @@ namespace WebApplication12.Controllers
                 using (var databaseContext = new ToDoDatabaseEntities())
                 {
 
-                    User reglog = new User();
-
-                    reglog.FirstName = registerDetails.FirstName;
-                    reglog.LastName = registerDetails.LastName;
-                    reglog.Mail = registerDetails.Mail;
-                    reglog.Password = registerDetails.Password;
+                    User reglog = new User
+                    {
+                        FirstName = registerDetails.FirstName,
+                        LastName = registerDetails.LastName,
+                        Mail = registerDetails.Mail,
+                        Password = registerDetails.Password
+                    };
 
                     databaseContext.User.Add(reglog);
                     databaseContext.SaveChanges();
