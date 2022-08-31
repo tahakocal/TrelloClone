@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -10,7 +9,7 @@ namespace WebApplication12.Controllers
 {
     public class DoController : Controller
     {
-        private readonly ToDoDatabaseEntities _db = new ToDoDatabaseEntities();
+        private ToDoDatabaseEntities _db = new ToDoDatabaseEntities();
 
         #region Index
 
@@ -32,15 +31,12 @@ namespace WebApplication12.Controllers
         #region Create
         public ActionResult Create()
         {
-            Guid x = new Guid();
-            var b =x;
-           
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ToDo toDo)
+        public ActionResult Create([Bind(Include = "Title,Description")] ToDo toDo)
         {
             var userLogin = Session["LoginUser"] as User;
 
@@ -57,6 +53,7 @@ namespace WebApplication12.Controllers
                     Request.Files[0].SaveAs(Server.MapPath(path));
                     toDo.Image = "/images/" + fileName + ext;
                 }
+
 
                 _db.ToDo.Add(toDo);
                 _db.SaveChanges();
