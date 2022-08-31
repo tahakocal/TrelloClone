@@ -130,6 +130,18 @@
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Status" EntityType="ToDoDatabaseModel.Status" />
+          <EntitySet Name="sysdiagrams" EntityType="ToDoDatabaseModel.sysdiagrams" />
+          <EntitySet Name="ToDo" EntityType="ToDoDatabaseModel.ToDo" />
+          <EntitySet Name="User" EntityType="ToDoDatabaseModel.User" />
+          <AssociationSet Name="ToDo_Status" Association="ToDoDatabaseModel.ToDo_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="ToDo" EntitySet="ToDo" />
+          </AssociationSet>
+          <AssociationSet Name="ToDo_User" Association="ToDoDatabaseModel.ToDo_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ToDo" EntitySet="ToDo" />
+          </AssociationSet>
           <FunctionImport Name="Validate_User">
             <Parameter Name="Username" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
@@ -156,18 +168,6 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="Status" EntityType="ToDoDatabaseModel.Status" />
-          <EntitySet Name="sysdiagrams" EntityType="ToDoDatabaseModel.sysdiagrams" />
-          <EntitySet Name="ToDo" EntityType="ToDoDatabaseModel.ToDo" />
-          <EntitySet Name="User" EntityType="ToDoDatabaseModel.User" />
-          <AssociationSet Name="ToDo_Status" Association="ToDoDatabaseModel.ToDo_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="ToDo" EntitySet="ToDo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToDo_User" Association="ToDoDatabaseModel.FK_ToDo_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="ToDo" EntitySet="ToDo" />
-          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -208,9 +208,9 @@
           <Property Name="IsActive" Type="Int32" Nullable="false" />
           <Property Name="Userid" Type="Int32" Nullable="false" />
           <Property Name="Statusid" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Status" Relationship="ToDoDatabaseModel.ToDo_Status" FromRole="ToDo" ToRole="Status" />
-          <NavigationProperty Name="User" Relationship="ToDoDatabaseModel.FK_ToDo_User" FromRole="ToDo" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="ToDoDatabaseModel.ToDo_User" FromRole="ToDo" ToRole="User" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -221,7 +221,7 @@
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Mail" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ToDo" Relationship="ToDoDatabaseModel.FK_ToDo_User" FromRole="User" ToRole="ToDo" />
+          <NavigationProperty Name="ToDo" Relationship="ToDoDatabaseModel.ToDo_User" FromRole="User" ToRole="ToDo" />
         </EntityType>
         <Association Name="ToDo_Status">
           <End Type="ToDoDatabaseModel.Status" Role="Status" Multiplicity="1" />
@@ -235,7 +235,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ToDo_User">
+        <Association Name="ToDo_User">
           <End Type="ToDoDatabaseModel.User" Role="User" Multiplicity="1" />
           <End Type="ToDoDatabaseModel.ToDo" Role="ToDo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -272,12 +272,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Validate_User" FunctionName="ToDoDatabaseModel.Store.Validate_User" />
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ToDoDatabaseModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ToDoDatabaseModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ToDoDatabaseModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ToDoDatabaseModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ToDoDatabaseModel.Store.sp_upgraddiagrams" />
           <EntitySetMapping Name="Status">
             <EntityTypeMapping TypeName="ToDoDatabaseModel.Status">
               <MappingFragment StoreEntitySet="Status">
@@ -321,6 +315,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Validate_User" FunctionName="ToDoDatabaseModel.Store.Validate_User" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ToDoDatabaseModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ToDoDatabaseModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ToDoDatabaseModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ToDoDatabaseModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ToDoDatabaseModel.Store.sp_upgraddiagrams" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

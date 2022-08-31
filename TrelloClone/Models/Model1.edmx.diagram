@@ -5,12 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="71d08977603842f8b9fb0f68a75cbb44" Name="Diagram1">
-        <EntityTypeShape EntityType="ToDoDatabaseModel.Status" Width="1.5" PointX="0.75" PointY="1.5" />
-        <EntityTypeShape EntityType="ToDoDatabaseModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ToDoDatabaseModel.Status" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="ToDoDatabaseModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="4.75" />
         <EntityTypeShape EntityType="ToDoDatabaseModel.ToDo" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="ToDoDatabaseModel.User" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="ToDoDatabaseModel.User" Width="1.5" PointX="0.75" PointY="5.125" />
         <AssociationConnector Association="ToDoDatabaseModel.ToDo_Status" />
-        <AssociationConnector Association="ToDoDatabaseModel.FK_ToDo_User" />
+        <AssociationConnector Association="ToDoDatabaseModel.ToDo_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
