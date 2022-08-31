@@ -25,7 +25,8 @@ namespace WebApplication12.Models
         public string LastName { get; set; }
         public string Mail { get; set; }
         public string Password { get; set; }
-    
+        public string Deneme { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ToDo> ToDo { get; set; }
     }

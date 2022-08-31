@@ -1,0 +1,53 @@
+﻿@model WebApplication12.Models.ToDo
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("MyAccount", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h2 class="text-center">Düzenle</h2>
+    <hr />
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+
+    <div class="form-group">
+        <h5 class="control-label col-md-2">Isim</h5>
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.User.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.User.FirstName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <h5 class="control-label col-md-2">Soyisim</h5>
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.User.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.User.LastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <h5 class="control-label col-md-2">Sifre</h5>
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.User.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.User.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-8">
+            <input type="submit" value="Kaydet" class="btn btn-success" />
+            <a href="/Do/Index"><button type="button" class="btn btn-danger">Geri Dön</button></a>
+        </div>
+    </div>
+</div>
+}
