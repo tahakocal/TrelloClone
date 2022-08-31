@@ -7,58 +7,51 @@
 <div class="container">
     <h3 style="text-align:center">Çöp Kutusu</h3>
     <div class="row">
-    @foreach (var column in Model.Where(x => x.IsActive == 1))
-    {
-
-        if (column.Image != null)
+        @foreach (var column in Model.Where(x => x.IsActive == 1))
         {
-            <div class="thumbnail">
-                <div class="caption">
-                    <img src="@column.Image" alt="" />
-                    <h3>@column.Title</h3>
-                    <p>@column.Description</p>
-                    <p>
-                        <a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Button</a> 
-                        <a href="/Do/Delete/@column.Id" class="btn btn-default" role="button">Button</a>
-                    </p>
+
+            if (column.Image != null)
+            {
+                <div class="thumbnail">
+                    <div class="caption">
+                        <img src="@column.Image" alt="" />
+                        <h3>@column.Title</h3>
+                        <p>@column.Description</p>
+                        <p>
+                            <a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Button</a>
+                            <a href="/Do/Delete/@column.Id" class="btn btn-default" role="button">Button</a>
+                        </p>
+                    </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="thumbnail">
+                    <div class="caption">
+                        <img src="~/images/Adsız.png" alt="" />
+                        <h3>@column.Title</h3>
+                        <p>@column.Description</p>
+                        <p>
+                            <a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Button</a>
+                            <a href="/Do/Delete/@column.Id" class="btn btn-default" role="button">Button</a>
+                        </p>
+                    </div>
+                </div>
+            }
+
+
+            @*<div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img src="~/assets/Adsız.png" alt="...">
+                        <div class="caption">
+                            <h3>@column.Title</h3>
+                            <p>@column.Description</p>
+                            <p><a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Button</a>
+                                <a href="/Do/Delete/@column.Id" class="btn btn-default" role="button">Button</a></p>
+                        </div>
+                    </div>
+
+                </div>*@
         }
-        else
-        {
-            <div class="thumbnail">
-                <div class="caption">
-                    <img src="~/images/Adsız.png" alt="" />
-                    <h3>@column.Title</h3>
-                    <p>@column.Description</p>
-                    <p>
-                        <a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Button</a>
-                        <a href="/Do/Delete/@column.Id" class="btn btn-default" role="button">Button</a>
-                    </p>
-                </div>
-            </div>
-        }
-
-
-
-
-
-
-
-
-        @*<div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="~/assets/Adsız.png" alt="...">
-                <div class="caption">
-                    <h3>@column.Title</h3>
-                    <p>@column.Description</p>
-                    <p><a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Button</a> 
-                        <a href="/Do/Delete/@column.Id" class="btn btn-default" role="button">Button</a></p>
-                </div>
-            </div>
-          
-        </div>*@
-    }
     </div>
 </div>
-        

@@ -16,29 +16,36 @@
     <link href="~/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div>
-    <nav>
-        <div class="nav-wrapper">
-            <h1 class="brand-logo center">ToDo </h1>
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li>
-                    <a href="/Do/Index">
-                        Ana Sayfa
-                    </a>
-                </li>
-            </ul>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li>
-                    <a href="/Account/Logout">
-                        Çıkış Yap
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
-<div>
-    @RenderBody()
-</div>
+    <div>
+        <nav>
+            <div class="nav-wrapper">
+                <h1 class="brand-logo center">ToDo </h1>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li>
+                        <a href="/Do/Index">
+                            Ana Sayfa
+                        </a>
+                    </li>
+                </ul>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li>
+                        <a href="/Account/Logout">
+                            Çıkış Yap
+                        </a>
+                    </li>
+                </ul>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li>
+                        <a href="/Account/MyAccount">
+                            Hesabım
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
 </body>
 </html>

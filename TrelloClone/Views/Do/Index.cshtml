@@ -5,6 +5,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script>
+    $(function () {
+        $(".draggable").draggable({
+            revert: "invalid"
+        });
+        $('.column').droppable({
+            accept: '.draggable',
+            drop: function (event, ui) {
+                var dropped = ui.draggable;
+                var droppedOn = $(this);
+                $(dropped).detach().css({ top: 0, left: 0 }).appendTo(droppedOn);
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: "",
+                    beforeSend: function (request) {
+                        request.setRequestHeader("RequestVerificationToken", $('#RequestVerificationToken').val());
+                    },
+                    data: JSON.stringify({ cardId: dropped[0].id, columnId: droppedOn[0].id }),
+                });
+            }
+        });
+    });
+</script>
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-12 ">
@@ -22,9 +49,9 @@
 
                     if (column.Image != null)
                     {
-                        <div class="thumbnail">
-                            <div class="caption">
-                                <img src="@column.Image" alt="" />
+                        <div class="thumbnail draggable">
+                            <div class="caption draggable">
+                                <img src="@column.Image" width="350" height="200" alt="" />
                                 <h3>@column.Title</h3>
                                 <p>@column.Description</p>
                                 <p>
@@ -38,7 +65,7 @@
                     {
                         <div class="thumbnail">
                             <div class="caption">
-                                <img src="~/images/Adsız.png" alt="" />
+                                <img src="~/images/Adsız.png" width="350" height="200" alt="" />
                                 <h3>@column.Title</h3>
                                 <p>@column.Description</p>
                                 <p>
@@ -64,7 +91,7 @@
                     {
                         <div class="thumbnail">
                             <div class="caption">
-                                <img src="@column.Image" alt="" />
+                                <img src="@column.Image" width="350" height="200" alt="" />
                                 <h3>@column.Title</h3>
                                 <p>@column.Description</p>
                                 <p>
@@ -78,7 +105,7 @@
                     {
                         <div class="thumbnail">
                             <div class="caption">
-                                <img src="~/images/Adsız.png" alt="" />
+                                <img src="~/images/Adsız.png" width="350" height="200" alt="" />
                                 <h3>@column.Title</h3>
                                 <p>@column.Description</p>
                                 <p>
@@ -97,13 +124,13 @@
             <div class="column" style="min-height: 600px">
                 <h3 style="text-align:center">Tamamlandı</h3>
                 @foreach (var column in Model.Where(x => x.Statusid == 3 && x.IsActive == 0))
-                
+
                 {
                     if (column.Image != null)
                     {
                         <div class="thumbnail">
                             <div class="caption">
-                                <img src="@column.Image" alt=""/>
+                                <img src="@column.Image" width="350" height="200" alt="" />
                                 <h3>@column.Title</h3>
                                 <p>@column.Description</p>
                                 <p><a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Sil</a> <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a></p>
@@ -114,7 +141,7 @@
                     {
                         <div class="thumbnail">
                             <div class="caption">
-                                <img src="~/images/Adsız.png" alt="" />
+                                <img src="~/images/Adsız.png" width="350" height="200" alt="" />
                                 <h3>@column.Title</h3>
                                 <p>@column.Description</p>
                                 <p><a href="/Do/Delete/@column.Id" class="btn btn-primary" role="button">Sil</a> <a href="/Do/Edit/@column.Id" class="btn btn-default" role="button">Düzenle</a></p>
@@ -126,4 +153,3 @@
         </div>
     </div>
 </div>
-
