@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using InstagramApiSharp.API;
+using InstagramApiSharp.Classes;
+using InstagramApiSharp.Classes.Models;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -53,7 +57,6 @@ namespace WebApplication12.Controllers
                     Request.Files[0].SaveAs(Server.MapPath(path));
                     toDo.Image = "/images/" + fileName + ext;
                 }
-
 
                 _db.ToDo.Add(toDo);
                 _db.SaveChanges();
